@@ -1,0 +1,17 @@
+.cell {
+	border: 1px solid black;
+	display: inline-block;
+	height: 13px;
+	width: 13px;
+}
+
+.alive {
+	background-color: black;
+}
+
+#board{
+	margin: auto;
+	text-align: center;
+	width: 450px;
+}
+
