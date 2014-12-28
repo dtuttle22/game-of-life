@@ -1,16 +1,36 @@
 var SIZE  = 30;
 var ALIVE = 1;
 var DEAD  = 0;
+var interval;
 
 $(function(){
 	drawBoard();
-	$("#nextGeneration").click(function(){
+	var nextButton = $("#nextGeneration");
+	var startButton = $("#start");
+	var clearButton = $("#clear");
+	
+	startButton.click(function(){
+		disable($(this), nextButton, clearButton);
+		start();
+	});
+	
+	$("#stop").click(function(){
+		enable(startButton, nextButton, clearButton);
+		stop();
+	});
+	
+	nextButton.click(function(){
 		sendBoard();
+	});
+	
+	clearButton.click(function(){
+		$(".cell").removeClass("alive");
 	});
 	
 	$(".cell").click(function(){
 		$(this).toggleClass("alive");
 	});
+	
 });
 
 function drawBoard(){
@@ -26,6 +46,14 @@ function addCell(cellId, idDestination){
 	    "id": cellId,
 	    "class": 'cell'
 	}).appendTo('#' + idDestination);
+}
+
+function start(){
+	interval = setInterval(sendBoard, 500);
+}
+
+function stop(){
+	clearInterval(interval);
 }
 
 function sendBoard(){
@@ -67,4 +95,16 @@ function updateBoard(board){
 			}
 		});
 	});
+}
+
+function disable(){
+  for (var i = 0; i < arguments.length; i++) {
+	  arguments[i].attr('disabled','disabled');
+  }
+}
+
+function enable(){
+  for (var i = 0; i < arguments.length; i++) {
+	  arguments[i].removeAttr('disabled');
+  }	
 }
